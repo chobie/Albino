@@ -32,6 +32,14 @@ class Albino
 	protected $options = array();
 	protected $encoding;
 	
+	/**
+	 * create Albino instance.
+	 * 
+	 * @param string $target string which you want convert with pygmentize
+	 * @param string $lexer
+	 * @param string $format
+	 * @param string $encoding
+	 */
 	public function __construct($target, $lexer = "text", $format = "html", $encoding = self::DEFAULT_ENCODING)
 	{
 		$this->target = $target;
@@ -39,6 +47,15 @@ class Albino
 		$this->encoding = $encoding;
 	}
 	
+	/**
+	 * Convention method of pygmentize
+	 * 
+	 * @param string $target string which you want convert with pygmentize
+	 * @param string $lexer
+	 * @param string $format
+	 * @param string $encoding
+	 * @return string pygmentized string.
+	 */
 	public static function colorize($target, $lexer = "text", $format = "html", $encoding = self::DEFAULT_ENCODING)
 	{
 		$albino = new self($target,$lexer,$format,$encoding);
@@ -48,6 +65,12 @@ class Albino
 		return $result;
 	}
 	
+	/**
+	 * convert array options to pygmentize option
+	 * 
+	 * @todo check specified options is valid
+	 * @param array $options
+	 */
 	private function convertOptions($options)
 	{
 		$result = array();
@@ -57,6 +80,13 @@ class Albino
 		return join(" ", $result);
 	}
 	
+	/**
+	 * execute pygmentize on this process.
+	 * 
+	 * @param array $options pygmentize options
+	 * @throws Exception
+	 * @return string pygmentized string
+	 */
 	private function execute($options = array())
 	{
 		$result = false;
